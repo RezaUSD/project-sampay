@@ -12,8 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Menambah 'Dijemput' ke dalam ENUM status di MySQL
-        DB::statement("ALTER TABLE reports MODIFY COLUMN status ENUM('Pending', 'Diproses', 'Dijemput', 'Selesai', 'Ditolak') NOT NULL DEFAULT 'Pending'");
+        Schema::table('reports', function (Blueprint $table) {
+            $table->enum('status', ['Pending', 'Diproses', 'Dijemput', 'Selesai', 'Ditolak'])->default('Pending')->change();
+        });
     }
 
     /**
@@ -21,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("ALTER TABLE reports MODIFY COLUMN status ENUM('Pending', 'Diproses', 'Selesai', 'Ditolak') NOT NULL DEFAULT 'Pending'");
+        Schema::table('reports', function (Blueprint $table) {
+            $table->enum('status', ['Pending', 'Diproses', 'Selesai', 'Ditolak'])->default('Pending')->change();
+        });
     }
 };
