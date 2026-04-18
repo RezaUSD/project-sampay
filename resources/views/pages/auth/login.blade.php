@@ -109,6 +109,10 @@
                     <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </form>
+
+            <div style="text-align:center;margin-top:24px;font-size:14px;color:#64748b">
+                Belum punya akun? <a href="{{ route('register') }}" style="color:#0ea5e9;text-decoration:none;font-weight:700">Daftar Sekarang</a>
+            </div>
         </div>
 
         <!-- Footer -->

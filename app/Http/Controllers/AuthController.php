@@ -33,6 +33,34 @@ class AuthController extends Controller
         ])->withInput();
     }
 
+    // ============================================================
+    // REGISTER (Khusus Warga)
+    // ============================================================
+    public function showRegister()
+    {
+        return view('pages.auth.register');
+    }
+
+    public function registerStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password),
+            'role' => 'Warga', // Default role untuk pendaftar umum
+        ]);
+
+        \Auth::login($user);
+
+        return redirect()->route('warga.dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di SAMPAY.');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();

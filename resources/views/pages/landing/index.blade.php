@@ -477,13 +477,13 @@
             <div class="nav-links">
                 <a href="#cara-kerja">Cara Kerja</a>
                 <a href="#fitur">Layanan</a>
-                <a href="{{ route('login') }}" class="nav-cta">
+                <a href="{{ route('register') }}" class="nav-cta">
                     Masuk
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
             </div>
             <div class="nav-mobile">
-                <a href="{{ route('login') }}" class="nav-cta">Masuk</a>
+                <a href="{{ route('register') }}" class="nav-cta">Masuk</a>
             </div>
         </div>
     </nav>
@@ -504,7 +504,7 @@
                         Solusi digital pengelolaan sampah yang efisien. Masyarakat melapor, petugas menjemput, dan sistem mencairkan reward otomatis ke akun Anda.
                     </p>
                     <div class="hero-actions">
-                        <a href="{{ route('login') }}" class="btn-hero-primary">
+                        <a href="{{ route('register') }}" class="btn-hero-primary">
                             Mulai Sekarang
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                         </a>
@@ -652,7 +652,7 @@
                     <h2 class="cta-title">Mulai Bersih &<br>Cuan Sekarang.</h2>
                     <p class="cta-text">Bergabunglah bersama ribuan warga yang sudah merasakan manfaat ekonomi dari mendaur ulang sampah mereka.</p>
                     <div class="cta-actions">
-                        <a href="{{ route('login') }}" class="btn-cta-primary">Buka Aplikasi</a>
+                        <a href="{{ route('register') }}" class="btn-cta-primary">Buka Aplikasi</a>
                     </div>
                 </div>
             </div>
@@ -670,7 +670,7 @@
                 <a href="#">Beranda</a>
                 <a href="#cara-kerja">Cara Kerja</a>
                 <a href="#fitur">Layanan</a>
-                <a href="{{ route('login') }}">Masuk</a>
+                <a href="{{ route('register') }}">Masuk</a>
             </div>
             <div class="footer-copy">&copy; 2026 SAMPAY Team.</div>
         </div>

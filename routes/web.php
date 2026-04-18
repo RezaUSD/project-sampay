@@ -29,6 +29,8 @@ Route::get('/', function () {
 // Login tidak pakai middleware 'guest' — controller yang handle redirect jika sudah login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
 
 // Fallback route 'home' yang dibutuhkan Laravel internal
 Route::get('/home', function () {
