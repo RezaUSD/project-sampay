@@ -50,15 +50,15 @@ class AuthController extends Controller
         ]);
 
         $user = \App\Models\User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => \Hash::make($request->password),
-            'role' => 'Warga', // Default role untuk pendaftar umum
+            'nama_lengkap' => $request->name, // Disesuaikan dengan model User
+            'email'        => $request->email,
+            'password'     => \Hash::make($request->password),
+            'role'         => 'Warga',
         ]);
 
         \Auth::login($user);
 
-        return redirect()->route('warga.dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di SAMPAY.');
+        return redirect()->route('masyarakat.dashboard')->with('success', 'Akun berhasil dibuat! Selamat datang di SAMPAY.');
     }
 
     public function logout(Request $request)

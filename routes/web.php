@@ -23,6 +23,16 @@ Route::get('/', function () {
     return view('pages.landing.index');
 })->name('landing');
 
+// ROUTE KHUSUS ISI HADIAH
+Route::get('/seed-rewards', function () {
+    try {
+        Artisan::call('db:seed', ['--class' => 'AdminSeeder', '--force' => true]);
+        return "✅ Katalog Hadiah Berhasil Diperbarui!";
+    } catch (\Exception $e) {
+        return "❌ Error: " . $e->getMessage();
+    }
+});
+
 // ============================================================
 // AUTH (Satu Pintu Untuk Semua Role)
 // ============================================================
@@ -116,7 +126,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::prefix('reward')->name('reward.')->group(function () {
         Route::get('/', [RewardController::class, 'index'])->name('index');
         Route::post('/', [RewardController::class, 'store'])->name('store');
-        Route::put('/{reward}', [RewardController::class, 'update'])->name('update');
+        Route::post('/{reward}/update', [RewardController::class, 'update'])->name('update');
         Route::delete('/{reward}', [RewardController::class, 'destroy'])->name('destroy');
     });
 

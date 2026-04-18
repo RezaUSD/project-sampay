@@ -87,32 +87,67 @@ class AdminSeeder extends Seeder
         );
 
         // =====================================
-        // 5. Buat Reward
+        // 5. Buat Reward (Katalog Menarik)
         // =====================================
-        RewardKatalog::updateOrCreate(
-            ['nama_reward' => 'Voucher Belanja Rp 50.000'],
+        // Hapus hadiah lama yang tidak diinginkan
+        RewardKatalog::whereIn('nama_reward', ['Kupon Makan Hemat', 'Tumbler Ramah Lingkungan', 'Tumbler Eksklusif SAMPAY', 'Kupon Makan Rp 25.000'])->delete();
+
+        $rewards = [
             [
-                'id_mitra'        => $mitraA->id_mitra,
-                'harga_poin'      => 100,
-                'deskripsi_reward'=> 'Voucher belanja di mitra terpilih senilai Rp 50.000',
-            ]
-        );
-        RewardKatalog::updateOrCreate(
-            ['nama_reward' => 'Tumbler Ramah Lingkungan'],
+                'nama' => 'Pulsa All Operator Rp 10.000',
+                'poin' => 50,
+                'desk' => 'Isi ulang pulsa senilai Rp 10.000 untuk semua operator seluler.',
+                'foto' => 'images/catalog/pulsa.png'
+            ],
             [
-                'id_mitra'        => $mitraB->id_mitra,
-                'harga_poin'      => 200,
-                'deskripsi_reward'=> 'Tumbler ramah lingkungan kapasitas 600ml',
-            ]
-        );
-        RewardKatalog::updateOrCreate(
-            ['nama_reward' => 'Kupon Makan Rp 25.000'],
+                'nama' => 'Saldo DANA / OVO Rp 25.000',
+                'poin' => 120,
+                'desk' => 'Top-up saldo dompet digital DANA atau OVO senilai Rp 25.000.',
+                'foto' => 'images/catalog/dana ovo.png'
+            ],
             [
-                'id_mitra'        => $mitraA->id_mitra,
-                'harga_poin'      => 50,
-                'deskripsi_reward'=> 'Kupon makan di warung mitra SAMPAY',
-            ]
-        );
+                'nama' => 'Beras Premium 1kg',
+                'poin' => 150,
+                'desk' => 'Beras kualitas premium kemasan 1kg dari mitra Martapura Bersih.',
+                'foto' => 'images/catalog/beras.png'
+            ],
+            [
+                'nama' => 'Minyak Goreng 1 Liter',
+                'poin' => 180,
+                'desk' => 'Minyak goreng kelapa sawit jernih kemasan pouch 1 liter.',
+                'foto' => 'images/catalog/minyak.png'
+            ],
+            [
+                'nama' => 'Voucher Belanja Rp 50.000',
+                'poin' => 250,
+                'desk' => 'Voucher belanja fisik yang dapat ditukarkan di minimarket mitra.',
+                'foto' => 'images/catalog/belanja.png'
+            ],
+            [
+                'nama' => 'Tumbler Ramah Lingkungan',
+                'poin' => 200,
+                'desk' => 'Botol minum reusable ramah lingkungan untuk kurangi sampah plastik.',
+                'foto' => 'images/catalog/tumbler.png'
+            ],
+            [
+                'nama' => 'Kupon Makan Hemat',
+                'poin' => 45,
+                'desk' => 'Voucher makan di warung mitra binaan SAMPAY.',
+                'foto' => 'images/catalog/makan.png'
+            ],
+        ];
+
+        foreach ($rewards as $r) {
+            RewardKatalog::updateOrCreate(
+                ['nama_reward' => $r['nama']],
+                [
+                    'id_mitra'        => (rand(0, 1) == 0) ? $mitraA->id_mitra : $mitraB->id_mitra,
+                    'harga_poin'      => $r['poin'],
+                    'deskripsi_reward'=> $r['desk'],
+                    'foto_reward'     => $r['foto'],
+                ]
+            );
+        }
 
         // =====================================
         // 6. Buat Laporan Dummy
@@ -153,6 +188,7 @@ class AdminSeeder extends Seeder
                     'kategori'       => $kat,
                     'status'         => $status[0],
                     'keterangan_warga' => 'Tumpukan sampah ' . $kat . ' di lokasi ini perlu segera ditangani.',
+                    'foto_sampah_masuk' => 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=400&auto=format&fit=crop', // Gambar dumpy sampah
                     'tanggal_lapor'  => now()->subDays(rand(0, 30)),
                 ]);
 

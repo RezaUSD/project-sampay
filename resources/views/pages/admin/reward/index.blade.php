@@ -26,8 +26,12 @@
         @forelse($rewards as $reward)
         <div class="rounded-2xl border border-gray-200 bg-white overflow-hidden dark:border-gray-800 dark:bg-white/[0.03]">
             @if($reward->foto_reward)
-                <img src="{{ asset('storage/' . $reward->foto_reward) }}" alt="{{ $reward->nama_reward }}"
-                    class="w-full h-40 object-cover">
+                @php
+                    $path = Str::startsWith($reward->foto_reward, ['http://', 'https://']) 
+                            ? $reward->foto_reward 
+                            : (Str::startsWith($reward->foto_reward, 'images/') ? asset($reward->foto_reward) : asset('storage/' . $reward->foto_reward));
+                @endphp
+                <img src="{{ $path }}" alt="{{ $reward->nama_reward }}" class="w-full h-40 object-cover">
             @else
                 <div class="w-full h-40 bg-gradient-to-br from-brand-100 to-purple-100 dark:from-brand-900/30 dark:to-purple-900/30 flex items-center justify-center">
                     <svg class="w-12 h-12 text-brand-300" fill="none" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>
@@ -125,7 +129,7 @@
     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Edit Reward</h3>
         <form id="formEdit" method="POST" enctype="multipart/form-data">
-            @csrf @method('PUT')
+            @csrf
             <div class="space-y-3">
                 <div>
                     <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Reward</label>
@@ -172,7 +176,7 @@ function openEdit(id, nama, mitraId, poin, deskripsi) {
     document.getElementById('edit_mitra').value = mitraId ?? '';
     document.getElementById('edit_poin').value = poin;
     document.getElementById('edit_deskripsi').value = deskripsi;
-    document.getElementById('formEdit').action = `/admin/reward/${id}`;
+    document.getElementById('formEdit').action = `/admin/reward/${id}/update`;
     document.getElementById('modalEdit').classList.remove('hidden');
 }
 </script>

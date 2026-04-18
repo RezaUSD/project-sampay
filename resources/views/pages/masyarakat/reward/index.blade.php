@@ -83,9 +83,14 @@
         @forelse($rewards as $r)
         <div class="reward-card">
             @if($r->foto_reward)
-            <img class="reward-img" src="{{ asset('storage/reward/'.$r->foto_reward) }}" alt="{{ $r->nama_reward }}"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="reward-img-placeholder" style="display:none">🎁</div>
+                @php
+                    $path = Str::startsWith($r->foto_reward, ['http://', 'https://']) 
+                            ? $r->foto_reward 
+                            : (Str::startsWith($r->foto_reward, 'images/') ? asset($r->foto_reward) : asset('storage/' . $r->foto_reward));
+                @endphp
+                <img class="reward-img" src="{{ $path }}" alt="{{ $r->nama_reward }}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="reward-img-placeholder" style="display:none">🎁</div>
             @else
             <div class="reward-img-placeholder">🎁</div>
             @endif
