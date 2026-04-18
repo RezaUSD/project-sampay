@@ -22,5 +22,10 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             \URL::forceScheme('https');
         }
+
+        // Paksa Header HTTPS untuk Proxy Railway
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            \URL::forceScheme('https');
+        }
     }
 }
