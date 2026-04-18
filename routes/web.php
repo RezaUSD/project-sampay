@@ -28,6 +28,8 @@ Route::get('/setup-database', function () {
     try {
         // Jalankan migrasi (buat tabel)
         Artisan::call('migrate', ['--force' => true]);
+        // Bikin jembatan foto (storage link)
+        Artisan::call('storage:link');
         // Jalankan seeding (isi data admin, petugas, reward, dll)
         Artisan::call('db:seed', ['--class' => 'AdminSeeder', '--force' => true]);
         
