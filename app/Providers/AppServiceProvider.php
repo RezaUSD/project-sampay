@@ -19,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Pakai pagination simple/bootstrap biar nggak raksasa di HP
-        \Illuminate\Pagination\Paginator::useBootstrapFive();
+        // Pakai pagination buatan sendiri biar keren dan pas di HP
+        \Illuminate\Pagination\Paginator::defaultView('vendor.pagination.sampay');
 
         if (config('app.env') === 'production') {
             \URL::forceScheme('https');
