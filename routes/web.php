@@ -23,13 +23,17 @@ Route::get('/', function () {
     return view('pages.landing.index');
 })->name('landing');
 
-// ROUTE KHUSUS ISI HADIAH
-Route::get('/seed-rewards', function () {
+// ROUTE SETUP DATABASE PRODUCTION (RAILWAY)
+Route::get('/setup-database', function () {
     try {
+        // Jalankan migrasi (buat tabel)
+        Artisan::call('migrate', ['--force' => true]);
+        // Jalankan seeding (isi data admin, petugas, reward, dll)
         Artisan::call('db:seed', ['--class' => 'AdminSeeder', '--force' => true]);
-        return "✅ Katalog Hadiah Berhasil Diperbarui!";
+        
+        return "✅ Database Railway Berhasil Diupdate & Disi Data!";
     } catch (\Exception $e) {
-        return "❌ Error: " . $e->getMessage();
+        return "❌ Gagal Setup: " . $e->getMessage();
     }
 });
 
