@@ -23,6 +23,18 @@ Route::get('/', function () {
     return view('pages.landing.index');
 })->name('landing');
 
+// ROUTE RAHASIA UNTUK MIGRATE (Hapus setelah dipakai)
+Route::get('/migrate-database', function () {
+    try {
+        Artisan::call('migrate:fresh', ['--force' => true]);
+        Artisan::call('db:seed', ['--force' => true]);
+        Artisan::call('storage:link');
+        return "✅ Database Selesai Di-migrate & Di-seed!";
+    } catch (\Exception $e) {
+        return "❌ Error: " . $e->getMessage();
+    }
+});
+
 // ============================================================
 // AUTH (Satu Pintu Untuk Semua Role)
 // ============================================================
